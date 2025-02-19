@@ -30,7 +30,7 @@ while read -r repo _; do
   cd $DIR
   echo "Starting to pull $repo"
 
-  if [ -d "$repo" ]; then
+  if [ -d "$repo" ] && git -C "$repo" rev-parse --is-bare-repository >/dev/null 2>&1; then
     echo "Repo $repo already exists, just pulling updates..."
     cd "$repo"
     if ! git remote update --prune; then
